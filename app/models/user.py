@@ -8,7 +8,7 @@ class UserBase(SQLModel):
     password_hash: str = Field(default=None)
     created_at: datetime = Field(default_factory=datetime.now)
     
-class UserCreate(UserBase):
+class CreateUser(UserBase):
     pass
 
 class User(UserBase, table=True):

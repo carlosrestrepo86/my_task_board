@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel
+from sqlmodel import SQLModel
 
-class Task(BaseModel):
+class Task(SQLModel):
     title: str
     description: Optional[str]
     due_date: Optional[datetime]

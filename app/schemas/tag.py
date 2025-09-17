@@ -1,4 +1,4 @@
 from pydantic import BaseModel
 
-class Tag(BaseModel):
+class TagModel(BaseModel):
     name: str
