@@ -1,7 +1,11 @@
 from datetime import datetime
-from typing import Optional
-from sqlmodel import SQLModel, Field
+from typing import TYPE_CHECKING, Optional
+from sqlmodel import Relationship, SQLModel, Field
+from app.models.link_table import TaskTagLink
 from app.models.user import User
+
+if TYPE_CHECKING:
+    from app.models.tag import Tag
 
 class TaskBase(SQLModel):
     title: str = Field(default=None)
@@ -16,4 +20,4 @@ class CreateTask(TaskBase):
 class Task(TaskBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     user_id: int | None = Field(default=None, foreign_key="user.id")
-    # Falta tags
+    tags: list["Tag"] = Relationship(back_populates="tasks", link_model=TaskTagLink)
