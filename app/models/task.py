@@ -12,7 +12,7 @@ class TaskBase(SQLModel):
     description: Optional[str] = Field(default=None)
     due_date: Optional[datetime] = Field(default=None)
     priority: int = Field(default=None) # 1 - 5
-    is_completed: bool = Field(default=None)
+    is_completed: bool = Field(default=False)
     
 class CreateTask(TaskBase):
     pass

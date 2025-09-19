@@ -6,7 +6,7 @@ from app.schemas.tag import TagModel
 
 router = APIRouter()
 
-@router.post("/tags/create", 
+@router.post("/tags", 
           response_model=TagModel, 
           status_code=status.HTTP_201_CREATED,
           tags=['Tags'])
@@ -21,7 +21,7 @@ def create_tag(user_data: TagModel,
     
     return tag_db
 
-@router.get("/tags/list",
+@router.get("/tags",
             response_model=list[Tag],
             tags=['Tags'])
 def list_tags(session: SessionDb):

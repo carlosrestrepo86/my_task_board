@@ -6,9 +6,10 @@ from fastapi import APIRouter, HTTPException, status
 
 router = APIRouter()
 
-@router.post("/register", 
+@router.post("/registers", 
           response_model=UserModel, 
-          status_code=status.HTTP_201_CREATED)
+          status_code=status.HTTP_201_CREATED,
+          tags=['Registers'])
 def register_user(user_data : UserModel,
                       session: SessionDb):
     
