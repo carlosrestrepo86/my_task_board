@@ -7,7 +7,7 @@ class TaskModel(SQLModel):
     description: Optional[str]
     due_date: Optional[datetime]
     priority: int #(1-5)
-    is_completed: bool
+    is_completed: bool = False
     user_id: int # FK -> Usuario
     #tags: ManyToMany -> Etiqueta
     
