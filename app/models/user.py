@@ -5,7 +5,7 @@ from datetime import datetime
 class UserBase(SQLModel):
     username: str = Field(default=None)
     email: EmailStr  = Field(default=None)
-    password_hash: str = Field(default=None)
+    password: str = Field(default=None)
     created_at: datetime = Field(default_factory=datetime.now)
     
 class CreateUser(UserBase):

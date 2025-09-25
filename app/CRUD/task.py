@@ -8,17 +8,11 @@ from app.models.task import Task
 from app.models.user import User
 from app.schemas.task import TaskModel, TaskUpdate
 
-router = APIRouter()
-
-@router.post("/tasks", 
-          response_model=TaskModel, 
-          status_code=status.HTTP_201_CREATED,
-          tags=['Tasks'])
-def create_task(user_data: TaskModel,
-               session: SessionDb):
+def create_task_db(user_data: TaskModel,
+               session: SessionDb,
+               current_user: User):
     
     user = session.exec(select(User).where(User.id == user_data.user_id)).first()
-    print("User: ", user)
     
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -31,9 +25,9 @@ def create_task(user_data: TaskModel,
     
     return task_db
 
-@router.delete("/tasks/{task_id}", tags=['Tasks'])
-def delete_task(task_id: int,
-                session: SessionDb):
+def delete_task_db(task_id: int,
+                session: SessionDb,
+                current_user: User):
     
     task_db = session.get(Task, task_id)
     if not task_db:
@@ -44,11 +38,10 @@ def delete_task(task_id: int,
     
     return {"Message": f"Task with id {task_id} deleted successfully"}
 
-@router.patch("/tasks/{task_id}", 
-          response_model=TaskModel, 
-          status_code=status.HTTP_201_CREATED,
-          tags=['Tasks'])
-def update_task(task_id: int, user_data: TaskUpdate, session: SessionDb):
+def update_task_db(task_id: int, 
+                   user_data: TaskUpdate,
+                   session: SessionDb,
+                   current_user: User):
     
     task_db = session.get(Task, task_id)
     if not task_db:
@@ -61,20 +54,17 @@ def update_task(task_id: int, user_data: TaskUpdate, session: SessionDb):
     session.refresh(task_db)
     return task_db
 
-@router.get("/tasks",
-            response_model=list[Task],
-            tags=['Tasks'])
-def list_tasks_by_filter(session: SessionDb, 
+def list_tasks_by_filter_db(session: SessionDb, 
                            task_filter = FilterDepends(TaskFilter)): 
      
     query = task_filter.filter(select(Task))
     
     return session.exec(query).all()
 
-@router.post("/tasks/{task_id}/add-tag/{tag_id}",
-             tags=['Tasks'])
-def add_tag_to_task(task_id: int,
-                    tag_id: int, session: SessionDb):
+def add_tag_to_task_bd(task_id: int,
+                    tag_id: int, 
+                    session: SessionDb,
+                    current_user: User):
     
     task_db = session.get(Task, task_id)
     if not task_db:

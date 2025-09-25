@@ -2,16 +2,12 @@ from fastapi import APIRouter, status
 from sqlalchemy import select
 from app.db.db import SessionDb
 from app.models.tag import Tag
+from app.models.user import User
 from app.schemas.tag import TagModel
 
-router = APIRouter()
-
-@router.post("/tags", 
-          response_model=TagModel, 
-          status_code=status.HTTP_201_CREATED,
-          tags=['Tags'])
-def create_tag(user_data: TagModel,
-               session: SessionDb):
+def create_tag_db(user_data: TagModel,
+               session: SessionDb,
+               current_user: User):
     
     tag_db = Tag(**user_data.model_dump())
     
@@ -21,8 +17,5 @@ def create_tag(user_data: TagModel,
     
     return tag_db
 
-@router.get("/tags",
-            response_model=list[Tag],
-            tags=['Tags'])
-def list_tags(session: SessionDb):
+def list_tags_db(session: SessionDb):
     return session.exec(select(Tag)).scalars().all()
