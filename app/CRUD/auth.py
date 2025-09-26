@@ -5,7 +5,6 @@ from sqlalchemy import select
 from app.core.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, verify_password
 from app.db.db import SessionDb
 from app.models.user import User
-from app.schemas.user import UserLogin
 
 def login_db(user_data: OAuth2PasswordRequestForm,
           session: SessionDb):

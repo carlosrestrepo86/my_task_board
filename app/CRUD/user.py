@@ -1,9 +1,9 @@
 from sqlalchemy import select
-from app.core.security import get_password_hash, verify_password
+from app.core.security import get_password_hash
 from app.db.db import SessionDb
-from app.schemas.user import UserModel, UserLogin
+from app.schemas.user import UserModel
 from app.models.user import User
-from fastapi import APIRouter, HTTPException, status
+from fastapi import HTTPException, status
 
 def register_user_bd(user_data : UserModel,
                       session: SessionDb):
@@ -34,4 +34,7 @@ def get_user_by_id_bd(user_id: int,
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
     return user_db
+
+def list_users_db(session: SessionDb):
+    return session.exec(select(User)).scalars().all()
 

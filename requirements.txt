@@ -4,4 +4,5 @@ sqlmodel==0.0.24
 PyJWT==2.10.1
 passlib[bcrypt]==1.7.4
 bcrypt==3.2.2
-fastapi-filter[all] == 2.0.1
+fastapi-filter[all]==2.0.1
+pydantic-settings==2.11.0

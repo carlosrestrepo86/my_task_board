@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from fastapi_filter import FilterDepends
-from app.CRUD.task import add_tag_to_task_bd, create_task_db, delete_task_db, list_tasks_by_filter_db, update_task_db
+from app.CRUD.task import add_tag_to_task_bd, create_task_db, delete_tag_to_task_bd, delete_task_db, list_tasks_by_filter_db, update_task_db
 from app.core.dependencies import get_current_user
 from app.db.db import SessionDb
 from app.filters import TaskFilter
@@ -42,9 +42,17 @@ def list_tasks_by_filter(session: SessionDb,
                            task_filter = FilterDepends(TaskFilter)):
     return list_tasks_by_filter_db(session,task_filter)
 
-@router.post("/tasks/{task_id}/add-tag/{tag_id}",
+@router.post("/tasks/{task_id}/tags/{tag_id}",
              tags=['Tasks'])
 def add_tag_to_task(task_id: int,
                     tag_id: int, session: SessionDb,
                     current_user: User = Depends(get_current_user)):
     return add_tag_to_task_bd(task_id, tag_id, session, current_user)
+
+@router.delete("/tasks/{task_id}/tags/{tag_id}",
+               tags=['Tasks'])
+def delete_tag_to_task(task_id: int,
+                       tag_id: int, 
+                       session: SessionDb,
+                       current_user: User = Depends(get_current_user)):
+    return delete_tag_to_task_bd(task_id, tag_id, session, current_user)

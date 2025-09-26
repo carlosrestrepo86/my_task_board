@@ -1,12 +1,12 @@
-from datetime import datetime, timedelta, UTC, timezone
+from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, status
 from passlib.context import CryptContext
 import jwt
+from app.config import settings
 
-SECRET_KEY = "super-secret-key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 5
-
+SECRET_KEY = settings.SECRET_KEY
+ALGORITHM = settings.ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 # To hash
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

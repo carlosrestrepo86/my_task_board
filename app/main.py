@@ -1,4 +1,3 @@
-# Punto de entrada (FastAPI app)
 from fastapi import FastAPI
 from app.db.db import create_all_tables
 from app.api.users import router as user_router

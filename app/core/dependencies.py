@@ -2,7 +2,6 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select
-
 from app.core.security import decode_access_token
 from app.db.db import SessionDb
 from app.models.user import User
