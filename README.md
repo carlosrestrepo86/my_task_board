@@ -49,6 +49,14 @@ my_task_board/
 * SQLModel
 * Pydantic
 * PyJWT
+* SQLite
+
+### 📦 Instalar SQLite
+
+1. Descargar desde:<br>
+SQLite → https://sqlite.org/download.html
+
+2. Realizar instalación.
 
 ### 🔧 Configuración del entorno
 1. Crear entorno virtual:
